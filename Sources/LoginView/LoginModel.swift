@@ -16,7 +16,7 @@ public struct LoginParams {
   public var pwdLabel: String
   public var labelWidth: CGFloat
   public var overallWidth: CGFloat
-  
+
   public init(
     user: String = "",
     pwd: String = "",
@@ -41,17 +41,14 @@ public struct LoginParams {
 
 public class LoginModel: ObservableObject {
 
-  @Published public var params = LoginParams()
+  @Published public var params: LoginParams!
 
-  public init(params: LoginParams = LoginParams()) {
+  public var cancelAction: (() -> Void)?
+  public var loginAction: ((String, String) -> Void)?
+
+  public init(params: LoginParams = LoginParams(), cancelAction: @escaping () -> Void, loginAction: @escaping (String, String) -> Void) {
     self.params = params
-  }
-  
-  public func cancelButton() {
-    
-  }
-
-  public func loginButton(_ user: String, _ pwd: String) {
-    
-  }
+    self.cancelAction = cancelAction
+    self.loginAction = loginAction
+  }  
 }

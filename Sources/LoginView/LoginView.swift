@@ -32,10 +32,10 @@ public struct LoginView: View {
       }
       
       HStack( spacing: 60 ) {
-        Button( "Cancel" ) { model.cancelButton() }
+        Button( "Cancel", action: { model.cancelAction!()})
           .keyboardShortcut( .cancelAction )
         
-        Button( "Log in" ) { model.loginButton(model.params.user, model.params.pwd) }
+        Button( "Log in" ) { model.loginAction!(model.params.user, model.params.pwd) }
           .keyboardShortcut( .defaultAction )
           .disabled( model.params.user.isEmpty || model.params.pwd.isEmpty )
       }
@@ -50,15 +50,34 @@ public struct LoginView: View {
 
 struct LoginView_Previews: PreviewProvider {
   static var previews: some View {
-    LoginView( model: LoginModel(params: LoginParams(
-      heading: "Enter Credentials",
-      userLabel: "Email",
-      pwdLabel: "Passcode")) )
+    LoginView( model:
+                LoginModel(
+                  params: LoginParams(
+                    heading: "Enter Credentials",
+                    userLabel: "Email",
+                    pwdLabel: "Passcode"),
+                  cancelAction: cancelAction,
+                  loginAction: loginAction
+                )
+    )
     .frame( width: 350 )
     .padding(10)
-
-    LoginView( model: LoginModel() )
+    
+    LoginView( model:
+                LoginModel(
+                  cancelAction: cancelAction,
+                  loginAction: loginAction
+                )
+    )
     .frame( width: 350 )
     .padding(10)
   }
+}
+
+let cancelAction = {
+  print("TEST Cancel button clicked")
+}
+
+let loginAction = { (user: String, pwd: String) in
+  print("TEST Login button clicked: user = \(user), pwd = \(pwd)")
 }

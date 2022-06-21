@@ -19,7 +19,6 @@ let package = Package(
     .library(name: "RemoteView", targets: ["RemoteView"]),
   ],
   dependencies: [
-//    .package(url: "https://github.com/K3TZR/UtilityComponents.git", branch: "main"),
     .package(url: "https://github.com/pointfreeco/swift-composable-architecture", from: "0.32.0"),
   ],
   targets: [
@@ -39,14 +38,12 @@ let package = Package(
     
     // LogView
     .target(name: "LogView", dependencies: [
-//      .product(name: "Shared", package: "UtilityComponents"),
       .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
     ]),
 
     // PickerView
     .target(name: "PickerView", dependencies: [
       "ClientView",
-//      .product(name: "Shared", package: "UtilityComponents"),
       .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
     ]),
     
